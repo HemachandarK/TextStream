@@ -29,10 +29,12 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     sourceSets {
         getByName("main") {
             assets {
@@ -43,14 +45,15 @@ android {
 }
 
 dependencies {
-    implementation ("com.itextpdf:itextg:5.5.10")
+    implementation("com.itextpdf:itextg:5.5.10")
+    implementation("com.itextpdf:itext7-core:7.2.5")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")
-    implementation ("com.karumi:dexter:6.2.3")
-    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
-    implementation ("com.google.firebase:firebase-firestore:24.4.3")
-    implementation ("com.google.android.material:material:1.9.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("com.karumi:dexter:6.2.3")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
+    implementation("com.google.firebase:firebase-firestore:24.4.3")
+    implementation("com.google.android.material:material:1.9.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -59,5 +62,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation (libs.android.pdf.viewer)
+    implementation(libs.android.pdf.viewer)
 }
