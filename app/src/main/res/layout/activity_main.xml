@@ -18,52 +18,84 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
-        <!-- App Name TextView -->
         <TextView
             android:id="@+id/appName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextStream"
+            android:text="TextStream Login"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:layout_centerInParent="true" />
     </RelativeLayout>
 
-    <!-- Styled SearchView -->
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/topBar"
-        android:layout_margin="16dp"
-        android:background="@drawable/rounded_search_view"
-        android:backgroundTint="@color/my_blue_primary"
-        app:iconifiedByDefault="false"
-        app:queryHint="Search Subjects..." />
-
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/searchView"
-        android:layout_above="@id/setReminderButton"
-        android:layout_margin="16dp"
-        android:background="@drawable/rounded_recycler_view"
-        android:elevation="2dp" />
-
-    <!-- Styled Button -->
-    <Button
-        android:id="@+id/setReminderButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/rounded_button"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="210dp"
         android:padding="12dp"
-        style="@style/CustomButtonStyle"
-        android:text="Set Task Reminder"
+        android:hint="Email"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textEmailAddress" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/etEmail"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:hint="Password"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textPassword" />
+
+    <!-- Role Selection (Student / Professor) -->
+    <RadioGroup
+        android:id="@+id/rgRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <RadioButton
+            android:id="@+id/rbStudent"
+            android:text="Student"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rbProfessor"
+            android:text="Professor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="24dp" />
+    </RadioGroup>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/rgRole"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_button"
+        android:text="Login"
         android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="12dp" />
 </RelativeLayout>

@@ -18,6 +18,9 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -40,6 +43,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.itextpdf:itextg:5.5.10")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
     implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
