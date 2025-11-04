@@ -11,12 +11,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.security.crypto.EncryptedFile;
+import androidx.security.crypto.MasterKeys;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.ViewHolder> {
+
     private List<File> recordings;
     private Context context;
 
@@ -28,7 +33,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recording_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recording_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,13 +44,23 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         holder.recordingName.setText(recording.getName());
 
         holder.playButton.setOnClickListener(v -> {
-            MediaPlayer mediaPlayer = new MediaPlayer();
             try {
-                mediaPlayer.setDataSource(recording.getAbsolutePath());
+                // Decrypt the file into a temporary cache file
+                File tempDecrypted = new File(context.getCacheDir(), "temp_play.3gp");
+                decryptFile(recording, tempDecrypted);
+
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(tempDecrypted.getAbsolutePath());
                 mediaPlayer.prepare();
                 mediaPlayer.start();
-            } catch (IOException e) {
+
+                // Delete the temp file after playback
+                mediaPlayer.setOnCompletionListener(mp -> tempDecrypted.delete());
+
+                Toast.makeText(context, "Playing recording", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(context, "Failed to play recording", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -53,6 +69,8 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
                 recordings.remove(position);
                 notifyItemRemoved(position);
                 Toast.makeText(context, "Recording deleted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to delete recording", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -74,5 +92,23 @@ public class RecordingAdapter extends RecyclerView.Adapter<RecordingAdapter.View
         }
     }
 
-}
+    // Utility method to decrypt an encrypted voice note
+    private void decryptFile(File encryptedFile, File outputFile) throws Exception {
+        String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        EncryptedFile ef = new EncryptedFile.Builder(
+                encryptedFile,
+                context,
+                masterKeyAlias,
+                EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+        ).build();
 
+        try (InputStream input = ef.openFileInput();
+             OutputStream output = new FileOutputStream(outputFile)) {
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = input.read(buffer)) != -1) {
+                output.write(buffer, 0, read);
+            }
+        }
+    }
+}

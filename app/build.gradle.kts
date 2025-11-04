@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("com.karumi:dexter:6.2.3")
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
