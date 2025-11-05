@@ -126,7 +126,7 @@
     </LinearLayout>
 
     <!-- Watch Video Button -->
-    <Button
+    <!--<Button
         android:id="@+id/videoaccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -139,5 +139,5 @@
         style="@style/CustomButtonStyle"
         android:text="Watch Video"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="16sp" />-->
 </RelativeLayout>

@@ -92,12 +92,12 @@ public class subjects extends AppCompatActivity {
         });
 
         // Video activity button
-        Button video = findViewById(R.id.videoaccess);
+        /*Button video = findViewById(R.id.videoaccess);
         video.setOnClickListener(v -> {
             Intent vi = new Intent(subjects.this, VideoActivity.class);
             vi.putExtra("subj", title);
             startActivity(vi);
-        });
+        });*/
     }
 
     // Utility to read file into byte[]

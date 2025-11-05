@@ -50,8 +50,8 @@ public class StudentHome extends AppCompatActivity {
 
         // Sample subject list
         blockList = new ArrayList<>();
-        blockList.add(new BlockItem("Operating Systems", "Open Text Book", subjects.class, "", "os_notes", ""));
-        blockList.add(new BlockItem("Computer Networks", "Open Text Book", subjects.class, "", "cn_notes", ""));
+        blockList.add(new BlockItem("Operating Systems", "Open Text Book", subjects.class, getString(R.string.os_obj), "os_notes", ""));
+        blockList.add(new BlockItem("Computer Networks", "Open Text Book", subjects.class, getString(R.string.cn_obj), "cn_notes", ""));
         blockList.add(new BlockItem("Graph Theory", "Open Text Book", subjects.class, getString(R.string.gt_obj), "gt_notes", getString(R.string.gt_book)));
         blockList.add(new BlockItem("Web Technologies", "Open Text Book", subjects.class, getString(R.string.wt_obj), "wt_notes", getString(R.string.wt_book)));
         blockList.add(new BlockItem("Compiler Engineering", "Open Text Book", subjects.class, getString(R.string.ce_obj), "ce_notes", getString(R.string.ce_book)));
@@ -81,6 +81,12 @@ public class StudentHome extends AppCompatActivity {
 
         Button shareButton = findViewById(R.id.shareButton);
         shareButton.setOnClickListener(v -> openFilePicker());
+
+        Button submitButton = findViewById(R.id.submitAssignmentButton);
+        submitButton.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentHome.this, SubmitAssignmentActivity.class);
+            startActivity(intent);
+        });
     }
 
     /** Step 1: Launch file picker **/
